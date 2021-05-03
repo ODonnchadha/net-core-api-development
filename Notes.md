@@ -11,3 +11,27 @@
   - Postman.
 
 - PROJECT SETUP & CONFIGURATIONS:
+  - Swagger: Via package Swashbuckle.AspNetCore
+  ```csharp
+    services.AddSwaggerGen(c =>
+    {
+      c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelListing", Version = "v1" });
+    });
+    if (env.IsDevelopment())
+    {
+      app.UseSwagger();
+      app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelListing v1"));
+    }
+  ```
+  - CORS: Cross-origin resource sharing.
+  ```csharp
+    services.AddCors(policy =>
+    {
+      policy.AddPolicy(CORS_POLICY, builder =>
+      {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+      });
+    });
+    app.UseCors(CORS_POLICY);
+  ```
+  - GITHUB:
