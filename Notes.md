@@ -135,3 +135,9 @@
   
   - JWT:
   - https://jwt.io/a
+    ```csharp
+      services.ConfigureJwt(Configuration);
+      
+      app.UseAuthorization();
+      app.UseAuthentication();
+    ```
