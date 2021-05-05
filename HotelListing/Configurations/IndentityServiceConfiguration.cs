@@ -36,8 +36,6 @@ namespace HotelListing.Configurations
             {
                 bearer.TokenValidationParameters = new TokenValidationParameters
                 {
-                    //ValidateAudience = false,
-                    //RequireAudience = false,
                     ValidateIssuer = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
