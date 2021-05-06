@@ -43,7 +43,6 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize()]
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -57,6 +56,29 @@ namespace HotelListing.Controllers
                 var result = mapper.Map<HotelRead>(hotel);
 
                 return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                logger.LogError(this.GetType().FullName, exception);
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
+        }
+
+
+        [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Create([FromBody] HotelCreate hotelCreate)
+        {
+            if (!ModelState.IsValid)
+            {
+                logger.LogError($"Invalid HttpPost in {this.GetType().FullName}");
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
             }
             catch (Exception exception)
             {

@@ -40,7 +40,6 @@ namespace HotelListing.Managers
             var expiration = DateTime.Now.AddMinutes(double.Parse(jwtSettings.GetSection("Lifetime").Value));
 
             var options = new JwtSecurityToken(
-                // audience: jwtSettings.GetSection("Issuer").Value,
                 issuer: jwtSettings.GetSection("Issuer").Value,
                 claims: claims,
                 expires: expiration,
