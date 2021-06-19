@@ -1,19 +1,20 @@
 ## Ultimate ASP.NET Core 5 Web API Development Guide
 - Udemy: Learn how to create a maintainable Web API using ASP.NET Core 5, Entity Framework and Enterprise Level Design Patterns.
+- Trevoir Williams
 
 - INTRODUCTION:
-  - Software interface that acts as an intermediary allowing two application to talk to each other.
-  - REST and associated best practices. Use .NET Core 5. Use Enterprise Patterns.
+  - API: A software interface that acts as an intermediary allowing two applications to talk to each other.
+  - REST and associated best practices using .NET Core 5 and Enterprise Patterns.
 
 - ENVIRONMENT CONFIGURATION:
-  - Installation of: Visual Studio Community.
-    - https://dotnet.microsoft.com/download/dotnet/5.0
-    - (1) .NET 5.x: SDK 5.0.202 and the (2) ASP.NET Core Runtime 5.0.5 hosting bundle.
+  - e.g.: Installation of: Visual Studio Community.
+    - [.NET 5.x: SDK 5.0.202](https://dotnet.microsoft.com/download/dotnet/5.0).
+    - [ASP.NET Core Runtime 5.0.5 hosting bundle](https://dotnet.microsoft.com/download/dotnet/5.0).
   - GitHub account.
   - Postman.
 
 - PROJECT SETUP & CONFIGURATIONS:
-  - Swagger: Via package Swashbuckle.AspNetCore
+  - Swagger: Via package 'Swashbuckle.AspNetCore.'
   ```csharp
     services.AddSwaggerGen(c =>
     {
