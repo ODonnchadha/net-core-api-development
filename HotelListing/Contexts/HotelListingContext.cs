@@ -27,7 +27,7 @@ namespace HotelListing.Contexts
                 new Hotel { Id = 3, Name = "Comfort Suites", Address = "Gerogetown", Rating = 1.3, CountryId = 3 }
             );
         }
-        DbSet<Country> Countries { get; set; }
+        public DbSet<Country> Countries { get; set; }
         DbSet<Hotel> Hotels { get; set; }
     }
 }

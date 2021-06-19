@@ -1,4 +1,6 @@
 ## Ultimate ASP.NET Core 5 Web API Development Guide
+- Udemy: Learn how to create a maintainable Web API using ASP.NET Core 5, Entity Framework and Enterprise Level Design Patterns.
+
 - INTRODUCTION:
   - Software interface that acts as an intermediary allowing two application to talk to each other.
   - REST and associated best practices. Use .NET Core 5. Use Enterprise Patterns.
@@ -132,12 +134,95 @@
     Update-Database
   ```
   - User roles: We'll need to seed them.
-  
+
   - JWT:
   - https://jwt.io/a
-    ```csharp
+  ```javascript
+    setx KEY "f5df0c58-931b-47EB-A853-5818890f863c" /M
+  ```
+  ```csharp
+    var key = Environment.GetEnvironmentVariable("KEY");
+  ```
+  ```csharp
       services.ConfigureJwt(Configuration);
       
       app.UseAuthorization();
       app.UseAuthentication();
+  ```
+
+- VALUE-ADDED FEATURES:
+  - Paging: Segmenting the data that is to be returned. e.g.: ?pageSize=1&pageNumber=3
+  ```csharp
+    using X.PagedList;
+  ```
+  - Implement Global exceptions:
+
+  - Implement API versioning:
+    - Ensure same route:
+      - [ApiController(), Route("api/[controller]")]
+      - [ApiController(), Route("api/Countries")]
+
+      - Within header: api-supported-versions: 1.0
+        - 1.)
+          - https://localhost/api/Countries/?api-version=2.0
+        - 2.)
+          - [ApiController(), Route("api/{v:apiversion}/Countries")]
+          - https://localhost/api/2.0/Countries
+        - 3.)
+          ```csharp
+            services.AddApiVersioning(versioning =>
+            {
+                versioning.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            });
+          ```
+    - Depricated:
+      - [ApiVersion("2.0", Deprecated = true)]
+      - e.g.: Within header: api-deprecated-versions: 2.0
+  
+  - Caching:
+    - Client Cache. Lives on the browser.
+    - Gateway Cache. On the server. And shared.
+    - Proxy cache. On the network. Shared.
+
+    - [ResponseCache(Duration = 60)]
+    - Client setting: Ensure no-cache header is off.
+    - Upon response: 'Cache-Control: public, max-age=60.' The client will know that the data is cached.
+    ```csharp
+      services.AddResponseCaching();
+      app.UseResponseCaching();
     ```
+    - Header: age: 9, e.g.:
+
+    ```csharp
+      services.AddControllers(config => 
+      {
+        config.CacheProfiles.Add("CACHE_DURATION_CONFIGURATION",
+          new CacheProfile
+          {
+            Duration = CACHE_DURATION_IN_SECONDS
+          });
+    ```
+    - [ResponseCache(CacheProfileName = "CACHE_DURATION_CONFIGURATION")]
+    - What about "stale" data? Add validation.
+    - Addition of library: Marvin.Cache.Headers
+    - Adding to headers: Expires, Last-Modified, ETag, etc...
+    ```csharp
+      public static void ConfigureHttpCacheHeaders(this IServiceCollection services)
+    ```
+    - This now becomes global. Can be overridden:
+    - [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+    - [HttpCacheValidation(MustValidate = false)]
+
+  - Rate Limiting and Throttling:
+    - Headers: X-Rate-Limit, et al.
+
+- HOSTING THE API ON IIS (Internet Information Services:)
+  - Set up the environment for a "local" deployment. i.e. Personal machine.
+  - DOWNLOAD: ASP.NET Core Runtime 5.0.2 Windows Hosting Bundle.
+  - DOWNLOAD: Recommended db Express. Server name: .\SQLEXPRESS or SQL Developer. Server name: localhost.
+  - Roadblocks: Permission and authorization. Administrative rights.
+
+  - Publish the site to IIS.
+  - Considerations. Swagger endpoint.
+  - Publish application to local folder and then manually move. Use settings to modify ConnectionString.
+  - Obtain the migration script.

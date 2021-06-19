@@ -15,13 +15,11 @@ namespace HotelListing.Configurations
             CreateMap<Country, CountryRead>().ReverseMap();
             CreateMap<Country, CountryReadAll>().ReverseMap();
             CreateMap<Country, CountryUpdate>().ReverseMap();
-            CreateMap<Country, CountryDelete>().ReverseMap();
 
             CreateMap<Hotel, HotelCreate>().ReverseMap();
             CreateMap<Hotel, HotelRead>().ReverseMap();
             CreateMap<Hotel, HotelReadAll>().ReverseMap();
             CreateMap<Hotel, HotelUpdate>().ReverseMap();
-            CreateMap<Hotel, HotelDelete>().ReverseMap();
 
             CreateMap<User, UserRegister>().ReverseMap();
             CreateMap<User, UserLogin>().ReverseMap();
